@@ -20,6 +20,11 @@ jobs:
         run: |
           npm install
           npm run build
+          
+      - name: Check secrets presence
+        run: |
+          echo "ACCESS_KEY_PRESENT=${{ secrets.AWS_ACCESS_KEY_ID != '' }}"
+          echo "SECRET_KEY_PRESENT=${{ secrets.AWS_SECRET_ACCESS_KEY != '' }}"
 
       - name: Configure AWS
         uses: aws-actions/configure-aws-credentials@v4
