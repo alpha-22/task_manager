@@ -1,0 +1,76 @@
+AWSTemplateFormatVersion: "2010-09-09"
+Description: Task Manager Full Stack Infrastructure
+
+Parameters:
+  KeyName:
+    Type: AWS::EC2::KeyPair::KeyName
+    Description: EC2 SSH Key
+
+Resources:
+
+  TaskBucket:
+    Type: AWS::S3::Bucket
+    Properties:
+      BucketName: task-manager-frontend-parth
+      WebsiteConfiguration:
+        IndexDocument: index.html
+
+  EC2SecurityGroup:
+    Type: AWS::EC2::SecurityGroup
+    Properties:
+      GroupDescription: Allow SSH + Backend
+      SecurityGroupIngress:
+        - IpProtocol: tcp
+          FromPort: 22
+          ToPort: 22
+          CidrIp: 0.0.0.0/0
+
+        - IpProtocol: tcp
+          FromPort: 5000
+          ToPort: 5000
+          CidrIp: 0.0.0.0/0
+
+  RDSSecurityGroup:
+    Type: AWS::EC2::SecurityGroup
+    Properties:
+      GroupDescription: Allow Postgres from EC2
+      SecurityGroupIngress:
+        - IpProtocol: tcp
+          FromPort: 5432
+          ToPort: 5432
+          SourceSecurityGroupId: !Ref EC2SecurityGroup
+
+  BackendEC2:
+    Type: AWS::EC2::Instance
+    Properties:
+      InstanceType: t2.micro
+      KeyName: !Ref KeyName
+      ImageId: ami-0f5ee92e2d63afc18
+      SecurityGroupIds:
+        - !Ref EC2SecurityGroup
+      Tags:
+        - Key: Name
+          Value: task-manager-backend
+
+  TaskDB:
+    Type: AWS::RDS::DBInstance
+    Properties:
+      Engine: postgres
+      DBName: task_manager
+      MasterUsername: postgres
+      MasterUserPassword: postgres123
+      DBInstanceClass: db.t3.micro
+      AllocatedStorage: 20
+      PubliclyAccessible: true
+      VPCSecurityGroups:
+        - !Ref RDSSecurityGroup
+
+Outputs:
+  BackendIP:
+    Value: !GetAtt BackendEC2.PublicIp
+
+  DatabaseEndpoint:
+    Value: !GetAtt TaskDB.Endpoint.Address
+
+  FrontendBucket:
+    Value: !Ref TaskBucket

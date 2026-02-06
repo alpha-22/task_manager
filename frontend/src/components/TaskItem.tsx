@@ -1,6 +1,4 @@
 import type { Task } from "../types/Task";
-import { Checkbox, IconButton, Paper } from "@mui/material";
-import DeleteIcon from "@mui/icons-material/Delete";
 import "./TaskItem.css";
 
 interface TaskItemProps {
@@ -11,26 +9,25 @@ interface TaskItemProps {
 
 const TaskItem: React.FC<TaskItemProps> = ({ task, onToggle, onDelete }) => {
   return (
-    <Paper elevation={1} className="task-row">
-      <div className="task-grid">
-        <Checkbox
+    <div className="task-card">
+      <div className="task-left">
+        <input
+          type="checkbox"
           checked={task.completed}
           onChange={() => onToggle(task.id)}
         />
-        <div
+
+        <span
           className={`task-title ${
             task.completed ? "task-completed" : ""
           }`}
         >
           {task.title}
-        </div>
-        <div className="task-action">
-          <IconButton onClick={() => onDelete(task.id)}>
-            <DeleteIcon color="error" />
-          </IconButton>
-        </div>
+        </span>
       </div>
-    </Paper>
+
+      <button onClick={() => onDelete(task.id)}>❌</button>
+    </div>
   );
 };
 

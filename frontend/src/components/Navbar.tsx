@@ -1,10 +1,12 @@
 import { Link, useNavigate } from "react-router-dom";
 import "./Navbar.css";
+import { useState } from "react";
 
 const Navbar = () => {
   const navigate = useNavigate();
   const token = localStorage.getItem("token");
   const user = localStorage.getItem("user");
+const [open, setOpen] = useState(true);
 
   const parsedUser = user ? JSON.parse(user) : null;
 
@@ -15,11 +17,19 @@ const Navbar = () => {
   };
 
   return (
-    <nav className="navbar">
-      <h2 className="logo">TaskManager</h2>
+    <nav className={`navbar ${open ? "open" : "closed"}`}>
+
+      <h2 className="logo">{open ? "TaskManager" : "TM"}</h2>
+
+      <button className="toggle-btn" onClick={() => setOpen(!open)}>☰</button>
 
       <div className="nav-links">
-        {token && <Link to="/">Home</Link>}
+        {token && <Link to="/dashboard">Dashboard</Link>}
+        {token && <Link to="/tasks">Tasks</Link>}
+        {token && <Link to="/goals">Goals</Link>}
+        {token && <Link to="/calendar">Calendar</Link>}
+        {token && <Link to="/analytics">Analytics</Link>}
+
         <Link to="/about">About</Link>
 
         {!token && <Link to="/login">Login</Link>}

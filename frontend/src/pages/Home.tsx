@@ -48,14 +48,16 @@ function Home() {
         <div>Action</div>
       </div>
 
-      {tasks.map(task => (
-        <TaskItem
-          key={task.id}
-          task={task}
-          onToggle={toggleTask}
-          onDelete={deleteTask}
-        />
-      ))}
+      <div style={{ maxWidth: "600px" }}>
+  {tasks.map(task => (
+    <TaskItem
+      key={task.id}
+      task={task}
+      onToggle={toggleTask}
+      onDelete={deleteTask}
+    />
+  ))}
+</div>
     </div>
   );
 }
