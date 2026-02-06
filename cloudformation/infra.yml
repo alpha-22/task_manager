@@ -9,11 +9,11 @@ Parameters:
 Resources:
 
   TaskBucket:
-    Type: AWS::S3::Bucket
-    Properties:
-      BucketName: task-manager-frontend-parth
-      WebsiteConfiguration:
-        IndexDocument: index.html
+  Type: AWS::S3::Bucket
+  Properties:
+    WebsiteConfiguration:
+      IndexDocument: index.html
+
 
   EC2SecurityGroup:
     Type: AWS::EC2::SecurityGroup
