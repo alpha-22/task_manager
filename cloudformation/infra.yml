@@ -9,10 +9,10 @@ Parameters:
 Resources:
 
   TaskBucket:
-  Type: AWS::S3::Bucket
-  Properties:
-    WebsiteConfiguration:
-      IndexDocument: index.html
+    Type: AWS::S3::Bucket
+    Properties:
+      WebsiteConfiguration:
+        IndexDocument: index.html
 
 
   EC2SecurityGroup:
