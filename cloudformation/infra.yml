@@ -4,16 +4,19 @@ Description: Task Manager Full Stack Infrastructure
 Parameters:
   KeyName:
     Type: AWS::EC2::KeyPair::KeyName
-    Description: EC2 SSH Key
+
+  DBPassword:
+    Type: String
+    NoEcho: true
 
 Resources:
 
   TaskBucket:
     Type: AWS::S3::Bucket
     Properties:
+      BucketName: !Sub task-manager-frontend-${AWS::AccountId}
       WebsiteConfiguration:
         IndexDocument: index.html
-
 
   EC2SecurityGroup:
     Type: AWS::EC2::SecurityGroup
@@ -45,12 +48,9 @@ Resources:
     Properties:
       InstanceType: t2.micro
       KeyName: !Ref KeyName
-      ImageId: ami-0f5ee92e2d63afc18
+      ImageId: ami-03f4878755434977f
       SecurityGroupIds:
         - !Ref EC2SecurityGroup
-      Tags:
-        - Key: Name
-          Value: task-manager-backend
 
   TaskDB:
     Type: AWS::RDS::DBInstance
@@ -58,7 +58,7 @@ Resources:
       Engine: postgres
       DBName: task_manager
       MasterUsername: postgres
-      MasterUserPassword: postgres123
+      MasterUserPassword: !Ref DBPassword
       DBInstanceClass: db.t3.micro
       AllocatedStorage: 20
       PubliclyAccessible: true
