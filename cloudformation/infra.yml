@@ -41,7 +41,8 @@ Resources:
         - IpProtocol: tcp
           FromPort: 5432
           ToPort: 5432
-          SourceSecurityGroupId: !Ref EC2SecurityGroup
+          SourceSecurityGroupId: !GetAtt EC2SecurityGroup.GroupId
+
 
   BackendEC2:
     Type: AWS::EC2::Instance
