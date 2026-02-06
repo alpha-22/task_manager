@@ -64,7 +64,8 @@ Resources:
       AllocatedStorage: 20
       PubliclyAccessible: true
       VPCSecurityGroups:
-        - !Ref RDSSecurityGroup
+      - !GetAtt RDSSecurityGroup.GroupId
+
 
 Outputs:
   BackendIP:
