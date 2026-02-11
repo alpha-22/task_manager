@@ -1,6 +1,8 @@
 import { useEffect, useState } from "react";
 import { api } from "../services/api";
 import type { Goal } from "../types/Goal";
+import "./Goals.css";
+
 export default function Goals() {
   const [goals, setGoals] = useState<Goal[]>([]);
   const [title, setTitle] = useState("");
@@ -10,23 +12,43 @@ export default function Goals() {
   }, []);
 
   const addGoal = async () => {
+    if (!title.trim()) return;
     const res = await api.post("/goals", { title });
     setGoals([...goals, res.data]);
     setTitle("");
   };
 
   return (
-    <div>
-      <h2>Goals</h2>
+    <div className="goals-container">
+      <h2 className="goals-title">🎯 Goals</h2>
 
-      <input value={title} onChange={e => setTitle(e.target.value)} />
-      <button onClick={addGoal}>Add Goal</button>
+      <div className="goal-input-wrapper">
+        <input
+          className="goal-input"
+          value={title}
+          onChange={e => setTitle(e.target.value)}
+          placeholder="Enter your goal..."
+        />
+        <button className="goal-btn" onClick={addGoal}>
+          Add Goal
+        </button>
+      </div>
 
-      {goals.map(g => (
-        <div key={g.id}>
-          {g.title} — {g.progress}%
-        </div>
-      ))}
+      <div className="goal-grid">
+        {goals.map(g => (
+          <div key={g.id} className="goal-card">
+            <h3>{g.title}</h3>
+            <p>Progress: {g.progress}%</p>
+
+            <div className="progress-bar">
+              <div
+                className="progress-fill"
+                style={{ width: `${g.progress}%` }}
+              />
+            </div>
+          </div>
+        ))}
+      </div>
     </div>
   );
 }
