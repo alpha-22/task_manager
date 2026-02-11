@@ -49,38 +49,78 @@
 
 .goal-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+  grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
   gap: 20px;
 }
 
 .goal-card {
   background: white;
-  padding: 20px;
+  padding: 25px;
   border-radius: 0px; /* square shape */
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
-  transition: 0.2s;
+  box-shadow: 0 6px 16px rgba(0, 0, 0, 0.05);
+  transition: 0.3s ease;
   border: 1px solid #e2e8f0;
+  text-align: center;
 }
 
 .goal-card:hover {
   transform: translateY(-4px);
-  box-shadow: 0 6px 18px rgba(0, 0, 0, 0.08);
+  box-shadow: 0 10px 22px rgba(0, 0, 0, 0.08);
 }
 
-.goal-card h3 {
+.goal-name {
   margin-bottom: 10px;
   font-size: 18px;
+  font-weight: 600;
 }
 
-.progress-bar {
-  height: 8px;
-  background: #e2e8f0;
-  margin-top: 10px;
-  overflow: hidden;
+.circle-container {
+  display: flex;
+  justify-content: center;
+  margin: 20px 0;
 }
 
-.progress-fill {
-  height: 100%;
+.circle {
+  width: 140px;
+  height: 140px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: background 0.6s ease-in-out;
+}
+
+.circle-inner {
+  width: 100px;
+  height: 100px;
+  background: white;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 22px;
+  font-weight: bold;
+  color: #008080;
+}
+
+.goal-buttons {
+  display: flex;
+  justify-content: center;
+  gap: 12px;
+}
+
+.goal-buttons button {
+  padding: 8px 14px;
+  border: none;
+  border-radius: 4px;
   background: #008080;
-  transition: width 0.4s ease;
+  color: white;
+  cursor: pointer;
+  font-weight: 500;
+  transition: 0.2s ease;
+}
+
+.goal-buttons button:hover {
+  background: #006666;
+  transform: translateY(-2px);
 }
