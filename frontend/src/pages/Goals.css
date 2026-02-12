@@ -124,3 +124,23 @@
   background: #006666;
   transform: translateY(-2px);
 }
+.goal-card {
+  position: relative;
+}
+
+.goal-delete {
+  position: absolute;
+  top: 10px;
+  left: 10px;
+  background: transparent;
+  border: none;
+  font-size: 16px;
+  cursor: pointer;
+  color: #999;
+  transition: 0.2s ease;
+}
+
+.goal-delete:hover {
+  color: red;
+  transform: scale(1.2);
+}

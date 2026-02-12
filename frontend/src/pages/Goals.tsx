@@ -17,6 +17,7 @@ const AnimatedNumber = ({ value }: { value: number }) => {
 
     const interval = setInterval(() => {
       start += increment;
+
       if (
         (increment > 0 && start >= end) ||
         (increment < 0 && start <= end)
@@ -44,8 +45,9 @@ export default function Goals() {
 
   const addGoal = async () => {
     if (!title.trim()) return;
+
     const res = await api.post("/goals", { title });
-    setGoals([...goals, res.data]);
+    setGoals([res.data, ...goals]);
     setTitle("");
   };
 
@@ -58,6 +60,11 @@ export default function Goals() {
     });
 
     setGoals(goals.map(g => (g.id === id ? res.data : g)));
+  };
+
+  const removeGoal = async (id: number) => {
+    await api.delete(`/goals/${id}`);
+    setGoals(goals.filter(g => g.id !== id));
   };
 
   return (
@@ -79,6 +86,15 @@ export default function Goals() {
       <div className="goal-grid">
         {goals.map(g => (
           <div key={g.id} className="goal-card">
+
+            {/* Delete Button */}
+            <button
+              className="goal-delete"
+              onClick={() => removeGoal(g.id)}
+            >
+              ✕
+            </button>
+
             <h3 className="goal-name">{g.title}</h3>
 
             <div className="circle-container">
@@ -97,13 +113,18 @@ export default function Goals() {
             </div>
 
             <div className="goal-buttons">
-              <button onClick={() => updateProgress(g.id, g.progress + 10)}>
+              <button
+                onClick={() => updateProgress(g.id, g.progress + 10)}
+              >
                 +10%
               </button>
-              <button onClick={() => updateProgress(g.id, g.progress - 10)}>
+              <button
+                onClick={() => updateProgress(g.id, g.progress - 10)}
+              >
                 -10%
               </button>
             </div>
+
           </div>
         ))}
       </div>
