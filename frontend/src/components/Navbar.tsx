@@ -28,7 +28,7 @@ const Navbar = () => {
         {token && <Link to="/">Dashboard</Link>}
         {token && <Link to="/goals">Goals</Link>}
         {token && <Link to="/calendar">Calendar</Link>}
-        {token && <Link to="/analytics">Analytics</Link>}
+        {/* {token && <Link to="/analytics">Analytics</Link>} */}
 
         <Link to="/about">About</Link>
 

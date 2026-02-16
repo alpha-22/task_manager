@@ -6,65 +6,65 @@ import Login from "./pages/Login";
 import Register from "./pages/Register";
 import ProtectedRoute from "./components/ProtectedRoute";
 import Goals from "./pages/Goals";
-
+import CalendarPage from "./pages/Calendar";
 // Placeholder pages (we’ll build next)
-const Calendar = () => <div>Calendar coming soon</div>;
+//const Calendar = () => <div>Calendar coming soon</div>;
 const Analytics = () => <div>Analytics coming soon</div>;
 
 function App() {
   return (
-      <div style={{ display: "flex" }}>
-  <Navbar />
-  <div style={{ flex: 1 }}>
-    <Routes>
+    <div style={{ display: "flex" }}>
+      <Navbar />
+      <div style={{ flex: 1 }}>
+        <Routes>
 
-        {/* Dashboard / Home */}
-        <Route
-          path="/"
-          element={
-            <ProtectedRoute>
-              <Home />
-            </ProtectedRoute>
-          }
-        />
+          {/* Dashboard / Home */}
+          <Route
+            path="/"
+            element={
+              <ProtectedRoute>
+                <Home />
+              </ProtectedRoute>
+            }
+          />
 
-        {/* Goals */}
-        <Route
-          path="/goals"
-          element={
-            <ProtectedRoute>
-              <Goals />
-            </ProtectedRoute>
-          }
-        />
+          {/* Goals */}
+          <Route
+            path="/goals"
+            element={
+              <ProtectedRoute>
+                <Goals />
+              </ProtectedRoute>
+            }
+          />
 
-        {/* Calendar */}
-        <Route
-          path="/calendar"
-          element={
-            <ProtectedRoute>
-              <Calendar />
-            </ProtectedRoute>
-          }
-        />
+          {/* Calendar */}
+          <Route
+            path="/calendar"
+            element={
+              <ProtectedRoute>
+                <CalendarPage/>
+              </ProtectedRoute>
+            }
+          />
 
-        {/* Analytics */}
-        <Route
-          path="/analytics"
-          element={
-            <ProtectedRoute>
-              <Analytics />
-            </ProtectedRoute>
-          }
-        />
+          {/* Analytics */}
+          <Route
+            path="/analytics"
+            element={
+              <ProtectedRoute>
+                <Analytics />
+              </ProtectedRoute>
+            }
+          />
 
-        {/* Public pages */}
-        <Route path="/about" element={<About />} />
-        <Route path="/login" element={<Login />} />
-        <Route path="/register" element={<Register />} />
-      </Routes>
-</div>
-</div>
+          {/* Public pages */}
+          <Route path="/about" element={<About />} />
+          <Route path="/login" element={<Login />} />
+          <Route path="/register" element={<Register />} />
+        </Routes>
+      </div>
+    </div>
 
   );
 }
